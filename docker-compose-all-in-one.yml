@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  clickstack:
+    image: docker.hyperdx.io/hyperdx/hyperdx-all-in-one:latest
+    container_name: clickstack-all-in-one
+    ports:
+      - "8080:8080" # HyperDX UI
+      - "4317:4317" # OTLP gRPC
+      - "4318:4318" # OTLP HTTP
+      - "9000:9000" # ClickHouse native
+    volumes:
+      - clickstack-mongo:/data/db
+      - clickhouse-data:/var/lib/clickhouse
+      - clickhouse-logs:/var/log/clickhouse-server
+    restart: unless-stopped
+
+volumes:
+  clickstack-mongo:
+  clickhouse-data:
+  clickhouse-logs:
