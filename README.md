@@ -46,3 +46,18 @@ The `docker-compose.yaml` file defines the following services:
 - `hyperdx-server`: The main backend server for HyperDX.
 - `hyperdx-otel-collector`: The OpenTelemetry collector that receives and processes telemetry data.
 - `hyperdx-app`: The frontend application for HyperDX.
+
+### Gen CLI
+
+```sh
+go install github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen@latest
+
+telemetrygen logs \
+    --otlp-insecure \
+    --otlp-http \
+    --otlp-endpoint=otel-collector:4318 \
+    --duration=5s \
+    --rate=10 \
+    --otlp-header 'Authorization="77...9bd7"' \
+    --service="demo-go-telemetry"
+```
