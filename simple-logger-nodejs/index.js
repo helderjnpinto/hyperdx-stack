@@ -5,10 +5,13 @@ const HyperDX = require("@hyperdx/node-opentelemetry");
 // initialize the SDK (captures console.*, traces, metrics, exceptions)
 initSDK({
   consoleCapture: true, // enable console.* capture
-  serviceName: process.env.OTEL_SERVICE_NAME || "simple-node-logger",
+  detectResources: true, // detect resources automatically
+  disableTracing: false, // enable tracing
+  service: process.env.OTEL_SERVICE_NAME || "simple-node-logger",
   apiKey: process.env.HYPERDX_API_KEY,
-  otlpEndpoint:
-    process.env.OTEL_EXPORTER_OTLP_ENDPOINT || "http://otel-collector:4318",
+  // otlpEndpoint:
+  //   process.env.OTEL_EXPORTER_OTLP_ENDPOINT || "http://otel-collector:4318", <- just set the env there is not property
+  stopOnTerminationSignals: true, // stop the SDK on termination signals;
 });
 
 console.log("👋 Hello, ClickStack! This log will be exported.");
